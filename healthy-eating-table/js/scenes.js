@@ -174,6 +174,15 @@
     notes: function () {
       return '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 7h24a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H19l-8 6v-6H8a4 4 0 0 1-4-4V11a4 4 0 0 1 4-4z" fill="currentColor"/><path d="M11 15h18M11 21h12" stroke="#F4F1E8" stroke-width="3" stroke-linecap="round"/></svg>';
     },
+    replay: function () {
+      return '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M30.5 13.5A12 12 0 1 0 32 22" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M33.5 5.5v10h-10z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>';
+    },
+    chevLeft: function () {
+      return '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M24 9L13 20l11 11" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>';
+    },
+    chevRight: function () {
+      return '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M16 9l11 11-11 11" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>';
+    },
     fullscreen: function () {
       return '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M6 15V8a2 2 0 0 1 2-2h7M25 6h7a2 2 0 0 1 2 2v7M34 25v7a2 2 0 0 1-2 2h-7M15 34H8a2 2 0 0 1-2-2v-7" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none"/></svg>';
     }
@@ -183,7 +192,8 @@
     "fork": SVG.fork, "knife": SVG.knife, "glass-full": SVG.glassFull, "glasses8": SVG.glasses8,
     "battery": SVG.battery, "sprout": SVG.sprout, "heart": SVG.heart, "notebook": SVG.notebook,
     "bowl": SVG.bowl, "mini-plate": SVG.miniPlate, "hand": SVG.hand, "close": SVG.close,
-    "notes": SVG.notes, "fullscreen": SVG.fullscreen
+    "notes": SVG.notes, "fullscreen": SVG.fullscreen, "replay": SVG.replay,
+    "chev-left": SVG.chevLeft, "chev-right": SVG.chevRight
   };
 
   function fillSvgs(root) {
@@ -391,6 +401,8 @@
   function bindTexts(root) {
     var nodes = (root || document).querySelectorAll("[data-t]");
     for (var i = 0; i < nodes.length; i++) nodes[i].textContent = get(nodes[i].getAttribute("data-t"));
+    var labels = (root || document).querySelectorAll("[data-aria]");
+    for (var j = 0; j < labels.length; j++) labels[j].setAttribute("aria-label", get(labels[j].getAttribute("data-aria")));
   }
 
   /* ------------------------------------------------------------------

@@ -41,6 +41,26 @@
         <stop offset="0" stop-color="#7DB5F5"/>
         <stop offset="1" stop-color="#2F80ED"/>
       </linearGradient>
+      <linearGradient id="bottle-water" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#6FB1F7"/>
+        <stop offset=".35" stop-color="#C9E4FD"/>
+        <stop offset=".6" stop-color="#8CC2F9"/>
+        <stop offset="1" stop-color="#3E8EEA"/>
+      </linearGradient>
+      <linearGradient id="bottle-cap" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#1E5FBF"/>
+        <stop offset=".4" stop-color="#4A92F0"/>
+        <stop offset="1" stop-color="#1B54A8"/>
+      </linearGradient>
+      <linearGradient id="tray-wood" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#D7A86E"/>
+        <stop offset=".55" stop-color="#C08A4F"/>
+        <stop offset="1" stop-color="#A26F38"/>
+      </linearGradient>
+      <linearGradient id="tray-floor" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#C99359"/>
+        <stop offset="1" stop-color="#E2B57D"/>
+      </linearGradient>
       <radialGradient id="wood-bowl" cx=".42" cy=".38" r=".7">
         <stop offset="0" stop-color="#D9A86F"/>
         <stop offset=".7" stop-color="#B98146"/>
@@ -232,16 +252,16 @@
     <!-- ===================== SCENE 8 ===================== -->
     <section class="scene" id="s8" data-scene="8">
       <h2 class="title" data-t="s8.title"></h2>
-      <div class="game-menu">
-        <ol class="game-list">
-          <li class="game-step"><span class="step-thumb" data-svg="mini-plate"></span><span class="step-text" data-t="s8.items.0"></span></li>
-          <li class="game-step"><span class="step-thumb step-tf" aria-hidden="true"><i class="tf-dot tf-true"></i><i class="tf-dot tf-false"></i></span><span class="step-text" data-t="s8.items.1"></span></li>
-        </ol>
-        <button class="btn btn-primary btn-start" data-action="start-game" data-t="s8.button"></button>
-      </div>
+      <ol class="game-steps" id="s8-steps">
+        <li class="game-step" data-step="0"><span class="step-thumb"><img src="assets/food/shopping_cart.png" alt="" draggable="false"></span><span class="step-text" data-t="s8.items.0"></span></li>
+        <li class="game-step" data-step="1"><span class="step-thumb" data-svg="mini-plate"></span><span class="step-text" data-t="s8.items.1"></span></li>
+        <li class="game-step" data-step="2"><span class="step-thumb"><img src="assets/food/hot_beverage.png" alt="" draggable="false"></span><span class="step-text" data-t="s8.items.2"></span></li>
+      </ol>
+      <div class="demo-tablet"><div class="demo-host" id="s8-demo"></div></div>
       <div class="qr-card">
         <div class="qr" id="qr" role="img" aria-label="QR"></div>
       </div>
+      <button class="btn btn-primary btn-start" data-action="start-game" data-t="s8.button"></button>
     </section>
 
     <!-- ===================== SCENE 9 ===================== -->
@@ -269,54 +289,89 @@
     <!-- Progress: a mini plate with 9 portions -->
     <div class="progress" id="progress" aria-hidden="true"></div>
 
-    <!-- ===================== GAMES ===================== -->
-    <div class="game" id="game" hidden role="dialog" aria-modal="true" aria-labelledby="pg-title">
-      <button class="icon-btn game-close" data-action="close-game" aria-label="Close" data-svg="close"></button>
-
-      <!-- Game 1 -->
-      <div class="pg" id="pg">
-        <div class="pg-head">
-          <h2 class="title" id="pg-title" data-t="plateGame.title"></h2>
-          <p class="pg-instruction" data-t="plateGame.instruction"></p>
-        </div>
-        <div class="pg-table">
-          <div class="pg-plate" id="pg-plate"></div>
-          <div class="pg-coaster" id="pg-coaster"><span class="coaster-ring"></span></div>
-        </div>
-        <div class="pg-actions">
-          <button class="btn btn-primary" id="pg-check" data-t="plateGame.checkButton" disabled></button>
-          <button class="btn btn-ghost" id="pg-again" data-t="plateGame.tryAgain" hidden></button>
-          <button class="btn btn-ghost" id="pg-next" data-t="plateGame.next"></button>
-        </div>
-        <div class="pg-side">
-          <div class="pg-tray" id="pg-tray"></div>
-          <div class="pg-drinks" id="pg-drinks"></div>
-          <div class="pg-result" id="pg-result" aria-live="polite"></div>
-        </div>
+    <!-- ===================== GAME: Supermarket → Lunch → Snack ===================== -->
+    <div class="game" id="game" hidden role="dialog" aria-modal="true" aria-labelledby="shop-title">
+      <div class="game-tools">
+        <button class="icon-btn" data-action="watch-again" data-aria="game.watchAgain" data-svg="replay"></button>
+        <button class="icon-btn" data-action="close-game" data-aria="game.close" data-svg="close"></button>
       </div>
 
-      <!-- Game 2 -->
-      <div class="qz" id="qz" hidden>
-        <div class="qz-head">
-          <h2 class="title" id="qz-title" data-t="quiz.title"></h2>
-          <p class="qz-counter" id="qz-counter"></p>
+      <!-- Stage 1: the supermarket -->
+      <section class="gs gs-shop" id="gs-shop">
+        <div class="gs-head">
+          <h2 class="title" id="shop-title" data-t="game.shop.title"></h2>
+          <p class="gs-instruction" data-t="game.shop.instruction"></p>
         </div>
-        <div class="qz-card" id="qz-card">
-          <p class="qz-q" id="qz-q"></p>
+        <p class="shop-counter" id="shop-counter" aria-live="polite"></p>
+        <div class="store">
+          <button class="aisle-arrow aisle-prev" tabindex="-1" aria-hidden="true" data-svg="chev-left"></button>
+          <div class="aisles" id="aisles"></div>
+          <button class="aisle-arrow aisle-next" tabindex="-1" aria-hidden="true" data-svg="chev-right"></button>
         </div>
-        <div class="qz-answers" id="qz-answers">
-          <button class="btn qz-btn qz-true" data-answer="true" data-t="quiz.trueButton"></button>
-          <button class="btn qz-btn qz-false" data-answer="false" data-t="quiz.falseButton"></button>
+        <div class="checkout-bar">
+          <div class="shopper" id="shopper">
+            <img class="shopper-person" src="assets/food/person_walking.png" alt="" draggable="false">
+            <div class="shopper-cart">
+              <img class="cart-img" src="assets/food/shopping_cart.png" alt="" draggable="false">
+              <div class="cart-items" id="cart-items"></div>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-checkout" id="checkout" hidden data-t="game.shop.checkout"></button>
         </div>
-        <div class="qz-feedback" id="qz-feedback" aria-live="polite">
-          <p class="qz-fb-main" id="qz-fb-main"></p>
-          <p class="qz-fb-expl" id="qz-fb-expl"></p>
-          <p class="src" id="qz-fb-src"></p>
+      </section>
+
+      <!-- Stages 2 and 3: lunch and afternoon snack -->
+      <section class="gs gs-meal" id="gs-meal" hidden>
+        <div class="gs-head">
+          <h2 class="title" id="meal-title"></h2>
+          <p class="gs-instruction" id="meal-instruction"></p>
         </div>
-        <button class="btn btn-primary qz-next" id="qz-next" data-t="quiz.nextButton" hidden></button>
-        <div class="qz-end" id="qz-end" hidden>
-          <p class="qz-score" id="qz-score" aria-live="polite"></p>
-          <button class="btn btn-primary" id="qz-finish" data-t="quiz.finishButton"></button>
+        <div class="meal-table">
+          <div class="meal-plate" id="meal-plate"></div>
+          <div class="meal-drinks" id="meal-drinks"></div>
+          <div class="meal-tray" id="meal-tray"></div>
+        </div>
+        <div class="meal-actions">
+          <button class="btn btn-primary" id="meal-check" disabled></button>
+          <button class="btn btn-ghost" id="meal-again" hidden></button>
+          <button class="btn btn-primary" id="meal-next" hidden></button>
+          <button class="btn btn-ghost btn-back" id="meal-back" hidden></button>
+        </div>
+        <div class="meal-side">
+          <div class="bag" id="bag"><div class="bag-items" id="bag-items"></div></div>
+          <div class="meal-result" id="meal-result" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <!-- Stage 4: result -->
+      <section class="gs gs-result" id="gs-result" hidden>
+        <div class="gs-head">
+          <h2 class="title" id="result-title" data-t="game.result.title"></h2>
+        </div>
+        <div class="result-meals">
+          <div class="result-lunch"><div class="result-plate" id="result-plate"></div><div class="result-drinks" id="result-drinks"></div></div>
+          <div class="result-tray" id="result-tray"></div>
+        </div>
+        <div class="result-bottom">
+          <div class="result-bag">
+            <p class="label" data-t="game.result.stillInBag"></p>
+            <div class="bag bag-open"><div class="bag-items" id="result-bag"></div></div>
+          </div>
+          <div class="result-reminder" id="result-reminder" aria-live="polite">
+            <p class="label" data-t="game.result.reminder"></p>
+            <p class="src" data-t="game.result.source"></p>
+          </div>
+          <button class="btn btn-primary btn-finish" id="result-finish" data-t="game.result.finish"></button>
+        </div>
+        <div class="rain" id="result-rain" aria-hidden="true"></div>
+      </section>
+
+      <!-- How to play (demo) -->
+      <div class="intro" id="intro" hidden>
+        <div class="demo-tablet intro-tablet"><div class="demo-host" id="intro-demo"></div></div>
+        <div class="intro-actions">
+          <button class="btn btn-ghost" id="intro-skip" data-t="game.skip"></button>
+          <button class="btn btn-primary" id="intro-play" data-t="game.play"></button>
         </div>
       </div>
     </div>

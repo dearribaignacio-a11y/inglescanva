@@ -113,13 +113,14 @@ window.CONTENT = {
   s8: {
     title: "Game time!",
     items: [
-      "1. Build your healthy plate",
-      "2. True or False?"
+      "1. Go shopping",
+      "2. Make your lunch",
+      "3. Make your snack"
     ],
     button: "Start the game",
     notes: [
-      { who: "Bautista", text: "Now it's your turn! Scan the QR code or use our laptop. First, choose the foods for a balanced plate. Then, answer 4 quick True or False questions. Don't worry if you make a mistake, we're here to learn!" },
-      { who: "During the game", text: "Joaquin helps with the plate, Ignacio with True or False, and Bautista with the Wellness Wall and the Wellness Passport." }
+      { who: "Bautista", text: "Now it's your turn! Scan the QR code or use our laptop. First, go to the supermarket and choose 12 products. Then, use them to make a healthy lunch and a healthy afternoon snack. Don't worry if you make a mistake, we're here to learn!" },
+      { who: "During the game", text: "Joaquin helps in the supermarket, Ignacio with the lunch and the snack, and Bautista with the Wellness Wall and the Wellness Passport." }
     ]
   },
 
@@ -136,63 +137,119 @@ window.CONTENT = {
     ]
   },
 
-  /* ---------- Game 1 – Build your healthy plate ---------- */
-  plateGame: {
-    title: "Build your healthy plate",
-    instruction: "Choose 5 foods and 1 drink.",
-    // group: veg = Vegetables & fruit, bread = Bread, pasta & cereals,
-    //        milk = Milk, yogurt & cheese, meat = Meat & eggs, sweets = Sweets
-    foods: [
-      { id: "apple", name: "Apple", group: "veg" },
-      { id: "banana", name: "Banana", group: "veg" },
-      { id: "carrot", name: "Carrot", group: "veg" },
-      { id: "broccoli", name: "Broccoli", group: "veg" },
-      { id: "bread", name: "Bread", group: "bread" },
-      { id: "pasta", name: "Pasta", group: "bread" },
-      { id: "cheese", name: "Cheese", group: "milk" },
-      { id: "milk", name: "Milk", group: "milk" },
-      { id: "chicken", name: "Chicken", group: "meat" },
-      { id: "egg", name: "Egg", group: "meat" },
-      { id: "chocolate", name: "Chocolate", group: "sweets" },
-      { id: "chips", name: "Chips", group: "sweets" }
-    ],
-    drinks: [
-      { id: "water", name: "Water" },
-      { id: "fizzy", name: "Fizzy drink" },
-      { id: "juice", name: "Boxed juice" }
-    ],
-    checkButton: "Check my plate",
-    messages: {
-      ok: "Great job! Your plate is balanced.",
-      veg: "Add some vegetables or fruit!",
-      bread: "Add some bread or pasta!",
-      milk: "Add some milk or cheese!",
-      meat: "Add some chicken or eggs!",
-      water: "Try water instead!",
-      sweets: "Too many sweets! Eat them only sometimes."
-    },
-    tryAgain: "Try again",
-    next: "Next: True or False"
-  },
+  /* ---------- The game: Supermarket → Lunch → Snack ---------- */
+  game: {
+    watchAgain: "Watch again",
+    close: "Close",
+    skip: "Skip",
+    play: "Let's play!",
 
-  /* ---------- Game 2 – True or False? ---------- */
-  quiz: {
-    title: "True or False?",
-    counter: "Question {n} of 4",
-    trueButton: "True",
-    falseButton: "False",
-    correct: "Correct!",
-    wrongTrue: "Not quite! The answer is True.",
-    wrongFalse: "Not quite! The answer is False.",
-    nextButton: "Next question",
-    score: "You got {x} out of 4!",
-    finishButton: "Finish",
-    questions: [
-      { text: "You should drink 8 glasses of water a day.", answer: true, explanation: "", source: "Source: Ministerio de Salud de la Nación (GAPA)" },
-      { text: "Juice from a box is as healthy as a fruit.", answer: false, explanation: "It's a sugary drink.", source: "Source: Ministerio de Salud de la Nación (GAPA)" },
-      { text: "You should eat 5 portions of fruit and vegetables a day.", answer: true, explanation: "", source: "Source: Ministerio de Salud de la Nación (GAPA)" },
-      { text: "Potatoes are in the same group as lettuce.", answer: false, explanation: "They're with bread, pasta and cereals.", source: "Source: Ministerio de Salud de la Nación (GAPA)" }
-    ]
+    /* Stage 1 – the supermarket */
+    shop: {
+      title: "Go shopping!",
+      instruction: "Choose 12 products.",
+      counter: "{n} / 12",
+      checkout: "Checkout",
+      aisles: {
+        fruitVeg: "Fruit & Veg",
+        bakery: "Bakery & Pantry",
+        dairy: "Dairy",
+        meatFish: "Meat & Fish",
+        frozen: "Frozen",
+        snacks: "Snacks",
+        drinks: "Drinks"
+      }
+    },
+
+    /* The 35 products.
+       aisle = where it is in the supermarket.
+       group = only for the game rules (never shown):
+       VEG_FRUIT, CEREALS, DAIRY, MEAT_EGGS, NUTS, WATER, SUGARY_DRINK, SOMETIMES */
+    products: [
+      { id: "apple", name: "Apple", aisle: "fruitVeg", group: "VEG_FRUIT" },
+      { id: "banana", name: "Banana", aisle: "fruitVeg", group: "VEG_FRUIT" },
+      { id: "orange", name: "Orange", aisle: "fruitVeg", group: "VEG_FRUIT" },
+      { id: "strawberries", name: "Strawberries", aisle: "fruitVeg", group: "VEG_FRUIT" },
+      { id: "grapes", name: "Grapes", aisle: "fruitVeg", group: "VEG_FRUIT" },
+      { id: "carrot", name: "Carrot", aisle: "fruitVeg", group: "VEG_FRUIT" },
+      { id: "broccoli", name: "Broccoli", aisle: "fruitVeg", group: "VEG_FRUIT" },
+      { id: "tomato", name: "Tomato", aisle: "fruitVeg", group: "VEG_FRUIT" },
+      { id: "lettuce", name: "Lettuce", aisle: "fruitVeg", group: "VEG_FRUIT" },
+      { id: "cucumber", name: "Cucumber", aisle: "fruitVeg", group: "VEG_FRUIT" },
+      { id: "potato", name: "Potato", aisle: "fruitVeg", group: "CEREALS" },
+      { id: "bread", name: "Bread", aisle: "bakery", group: "CEREALS" },
+      { id: "pasta", name: "Pasta", aisle: "bakery", group: "CEREALS" },
+      { id: "rice", name: "Rice", aisle: "bakery", group: "CEREALS" },
+      { id: "oats", name: "Oats", aisle: "bakery", group: "CEREALS" },
+      { id: "beans", name: "Beans", aisle: "bakery", group: "CEREALS" },
+      { id: "croissant", name: "Croissant", aisle: "bakery", group: "SOMETIMES" },
+      { id: "cookies", name: "Cookies", aisle: "bakery", group: "SOMETIMES" },
+      { id: "doughnut", name: "Doughnut", aisle: "bakery", group: "SOMETIMES" },
+      { id: "milk", name: "Milk", aisle: "dairy", group: "DAIRY" },
+      { id: "cheese", name: "Cheese", aisle: "dairy", group: "DAIRY" },
+      { id: "chicken", name: "Chicken", aisle: "meatFish", group: "MEAT_EGGS" },
+      { id: "steak", name: "Steak", aisle: "meatFish", group: "MEAT_EGGS" },
+      { id: "fish", name: "Fish", aisle: "meatFish", group: "MEAT_EGGS" },
+      { id: "egg", name: "Egg", aisle: "meatFish", group: "MEAT_EGGS" },
+      { id: "pizza", name: "Pizza", aisle: "frozen", group: "SOMETIMES" },
+      { id: "hamburger", name: "Hamburger", aisle: "frozen", group: "SOMETIMES" },
+      { id: "icecream", name: "Ice cream", aisle: "frozen", group: "SOMETIMES" },
+      { id: "chips", name: "Chips", aisle: "snacks", group: "SOMETIMES" },
+      { id: "chocolate", name: "Chocolate", aisle: "snacks", group: "SOMETIMES" },
+      { id: "sweets", name: "Sweets", aisle: "snacks", group: "SOMETIMES" },
+      { id: "nuts", name: "Nuts", aisle: "snacks", group: "NUTS" },
+      { id: "water", name: "Water", aisle: "drinks", group: "WATER" },
+      { id: "fizzy", name: "Fizzy drink", aisle: "drinks", group: "SUGARY_DRINK" },
+      { id: "juice", name: "Boxed juice", aisle: "drinks", group: "SUGARY_DRINK" }
+    ],
+
+    /* Stage 2 – lunch */
+    lunch: {
+      title: "Make your lunch",
+      instruction: "Choose 5 products for your lunch.",
+      check: "Check my lunch",
+      ok: "Great job! Your lunch is balanced.",
+      messages: {
+        vegFruit: "Add some vegetables or fruit!",
+        potato: "Potatoes are with bread, pasta and cereals!",
+        cereals: "Add some bread, pasta, rice or potatoes!",
+        meatEggs: "Add some meat, fish or eggs!",
+        water: "Add some water!",
+        sugaryDrink: "Try water instead!",
+        sometimes: "Sweets, snacks and fast food are only for sometimes!"
+      },
+      source: "Source: Ministerio de Salud de la Nación (GAPA)",
+      tryAgain: "Try again",
+      next: "Next: snack time",
+      back: "Back to the supermarket"
+    },
+
+    /* Stage 3 – afternoon snack */
+    snack: {
+      title: "Make your afternoon snack",
+      instruction: "Choose 3 products for your snack.",
+      check: "Check my snack",
+      ok: "Great job! Your snack is healthy.",
+      messages: {
+        dairy: "Add some milk or cheese!",
+        vegFruitCereals: "Add some fruit, bread or oats!",
+        sugaryDrink: "Try milk or water instead!",
+        sometimes: "Sweets, snacks and fast food are only for sometimes!"
+      },
+      source: "Source: Ministerio de Educación de la Ciudad de Buenos Aires (based on GAPA)",
+      tryAgain: "Try again",
+      next: "See my day",
+      back: "Back to the supermarket"
+    },
+
+    /* Stage 4 – result */
+    result: {
+      title: "Well done!",
+      stillInBag: "Still in your bag:",
+      reminder: "Remember: sweets and snacks only sometimes!",
+      source: "Source: Ministerio de Salud de la Nación (GAPA)",
+      finish: "Finish"
+    }
   },
 
   /* ---------- Sources window (link "Sources" in scene 9) ---------- */

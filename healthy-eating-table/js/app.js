@@ -19,6 +19,7 @@
   var scale = 1;
   var hintTimer = null;
   var lastFocus = null;
+  var s8demo = null, s8visible = false;
 
   function q(sel) { return document.querySelector(sel); }
 
@@ -40,6 +41,7 @@
         hideHint();
         setupObserver();
         scenes.forEach(function (s) { if ("inert" in s) s.inert = false; s.removeAttribute("aria-hidden"); });
+        updateSceneDemo();
       } else if (current) {
         go(current, true);
       }
@@ -70,6 +72,7 @@
     if (!mobile) Scenes.enter(n, prev, instant || !prev);
     updateProgress(n);
     renderNotes();
+    updateSceneDemo();
     setHash(String(n));
     hideHint();
     scheduleHint(instant || !prev ? 500 : 1150);
@@ -224,12 +227,20 @@
   }
 
   /* ---------------- Game hooks ---------------- */
+  // Scene 8 plays the "how to play" demo in a loop while it can be seen
+  function updateSceneDemo() {
+    if (!s8demo) return;
+    var on = !Game.isOpen() && (mobile ? s8visible : current === 8);
+    if (on) s8demo.play(); else s8demo.stop();
+  }
   function startGame() {
     hideHint();
     Game.open();
+    updateSceneDemo();
     setHash("game");
   }
   function onGameClosed(finished) {
+    updateSceneDemo();
     if (finished) {
       if (mobile) {
         var s9 = document.getElementById("s9");
@@ -306,9 +317,11 @@
     if (observer || !("IntersectionObserver" in window)) return;
     observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
+        if (mobile && !en.isIntersecting && en.target.id === "s8") { s8visible = false; updateSceneDemo(); }
         if (!mobile || !en.isIntersecting) return;
         var n = +en.target.getAttribute("data-scene");
         updateProgress(n);
+        if (n === 8) { s8visible = true; updateSceneDemo(); }
         if (n === 9 && !rained && !Game.isOpen()) { rained = true; Scenes.rain(); }
       });
     }, { threshold: 0.45 });
@@ -332,6 +345,7 @@
   function init() {
     Scenes.init();
     Game.init({ onClose: onGameClosed });
+    s8demo = Game.sceneDemo(document.getElementById("s8-demo"), document.getElementById("s8-steps"));
     buildProgress();
     buildQR();
     buildSources();
