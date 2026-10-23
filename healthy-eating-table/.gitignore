@@ -1,0 +1,13 @@
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors and tools
+.vscode/
+.idea/
+node_modules/
+.vercel/
+
+# Zip copies
+*.zip

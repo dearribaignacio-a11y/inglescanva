@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Eat Smart, Feel Great!</title>
+  <meta name="theme-color" content="#C9D7C3">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="is-stage">
+
+  <!-- Shared SVG definitions (plate ceramic, wood, glass) -->
+  <svg class="defs" aria-hidden="true" focusable="false" width="0" height="0">
+    <defs>
+      <radialGradient id="pl-rim" gradientUnits="userSpaceOnUse" cx="40" cy="36" r="66">
+        <stop offset="0" stop-color="#FFFFFF"/>
+        <stop offset=".55" stop-color="#F8F7F3"/>
+        <stop offset=".82" stop-color="#EEECE6"/>
+        <stop offset="1" stop-color="#E3E1DA"/>
+      </radialGradient>
+      <linearGradient id="pl-wall" gradientUnits="userSpaceOnUse" x1="24" y1="24" x2="76" y2="76">
+        <stop offset="0" stop-color="#DCDAD2"/>
+        <stop offset=".5" stop-color="#F1F0EB"/>
+        <stop offset="1" stop-color="#FFFFFF"/>
+      </linearGradient>
+      <radialGradient id="pl-floor" gradientUnits="userSpaceOnUse" cx="46" cy="44" r="40">
+        <stop offset="0" stop-color="#FFFFFF"/>
+        <stop offset=".7" stop-color="#F9F8F5"/>
+        <stop offset="1" stop-color="#F1F0EB"/>
+      </radialGradient>
+      <filter id="soft-blur" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation=".7"/>
+      </filter>
+      <linearGradient id="steel" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#9AA3A6"/>
+        <stop offset=".35" stop-color="#F4F6F6"/>
+        <stop offset=".6" stop-color="#C3CACC"/>
+        <stop offset="1" stop-color="#8C9598"/>
+      </linearGradient>
+      <linearGradient id="water-fill" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#7DB5F5"/>
+        <stop offset="1" stop-color="#2F80ED"/>
+      </linearGradient>
+      <radialGradient id="wood-bowl" cx=".42" cy=".38" r=".7">
+        <stop offset="0" stop-color="#D9A86F"/>
+        <stop offset=".7" stop-color="#B98146"/>
+        <stop offset="1" stop-color="#93622F"/>
+      </radialGradient>
+      <radialGradient id="bowl-shade" cx=".6" cy=".64" r=".72">
+        <stop offset="0" stop-color="#3A1E08" stop-opacity="0"/>
+        <stop offset=".62" stop-color="#3A1E08" stop-opacity="0"/>
+        <stop offset="1" stop-color="#3A1E08" stop-opacity=".55"/>
+      </radialGradient>
+      <radialGradient id="wood-bowl-in" cx=".6" cy=".62" r=".7">
+        <stop offset="0" stop-color="#E3B67F"/>
+        <stop offset=".75" stop-color="#C38D52"/>
+        <stop offset="1" stop-color="#9C6B37"/>
+      </radialGradient>
+    </defs>
+  </svg>
+
+  <!-- Wooden desk that replaces the tablecloth in scene 5 -->
+  <div class="desk-layer" aria-hidden="true">
+    <svg width="100%" height="100%" preserveAspectRatio="none">
+      <filter id="woodgrain" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.0025 0.06" numOctaves="3" seed="7"/>
+        <feColorMatrix type="matrix" values="0 0 0 0 0.62  0 0 0 0 0.42  0 0 0 0 0.24  0 0 0 -1.1 1.05"/>
+      </filter>
+      <rect width="100%" height="100%" fill="#C79A69"/>
+      <rect width="100%" height="100%" filter="url(#woodgrain)" opacity=".55"/>
+    </svg>
+  </div>
+
+  <main id="stage" aria-live="off">
+
+    <!-- ===================== SCENE 1 ===================== -->
+    <section class="scene" id="s1" data-scene="1">
+      <div class="placemat">
+        <h1 class="title placemat-title" data-t="s1.title"></h1>
+        <div class="plate-slot" data-slot="1"></div>
+        <div class="cutlery cutlery-fork" data-svg="fork"></div>
+        <div class="cutlery cutlery-knife" data-svg="knife"></div>
+        <p class="placemat-sub" data-t="s1.subtitle"></p>
+      </div>
+      <button class="hit plate-hit" data-action="fill" aria-label="Plate"></button>
+      <div class="menu-card">
+        <p class="menu-team" data-t="s1.card.0"></p>
+        <span class="menu-rule" aria-hidden="true"></span>
+        <p class="menu-name" data-t="s1.card.1"></p>
+        <p class="menu-name" data-t="s1.card.2"></p>
+        <p class="menu-name" data-t="s1.card.3"></p>
+        <span class="menu-rule" aria-hidden="true"></span>
+        <p class="menu-meta" data-t="s1.card.4"></p>
+        <p class="menu-meta" data-t="s1.card.5"></p>
+      </div>
+    </section>
+
+    <!-- ===================== SCENE 2 ===================== -->
+    <section class="scene" id="s2" data-scene="2">
+      <h2 class="title" data-t="s2.title"></h2>
+      <div class="plate-slot" data-slot="2"></div>
+      <div class="paper-notes">
+        <div class="paper-note" data-i="0"><span class="tape"></span><p class="label" data-t="s2.items.0.text"></p><p class="src" data-t="s2.items.0.source"></p></div>
+        <div class="paper-note" data-i="1"><span class="tape"></span><p class="label" data-t="s2.items.1.text"></p><p class="src" data-t="s2.items.1.source"></p></div>
+        <div class="paper-note" data-i="2"><span class="tape"></span><p class="label" data-t="s2.items.2.text"></p><p class="src" data-t="s2.items.2.source"></p></div>
+      </div>
+      <button class="hit notes-hit" data-action="note" aria-label="Next"></button>
+    </section>
+
+    <!-- ===================== SCENE 3 ===================== -->
+    <section class="scene" id="s3" data-scene="3">
+      <h2 class="title" data-t="s3.title"></h2>
+      <div class="plate-slot" data-slot="3"></div>
+      <div class="group-labels">
+        <button class="glabel" data-g="sweets" data-t="s3.groups.sweets"></button>
+        <button class="glabel" data-g="veg" data-t="s3.groups.veg"></button>
+        <button class="glabel" data-g="oils" data-t="s3.groups.oils"></button>
+        <button class="glabel" data-g="bread" data-t="s3.groups.bread"></button>
+        <button class="glabel" data-g="milk" data-t="s3.groups.milk"></button>
+        <button class="glabel" data-g="meat" data-t="s3.groups.meat"></button>
+      </div>
+      <div class="water-spot">
+        <div class="water-glass" data-svg="glass-full"></div>
+        <p class="label water-label" data-t="s3.water"></p>
+      </div>
+      <p class="src s3-src" data-t="s3.source"></p>
+    </section>
+
+    <!-- ===================== SCENE 4 ===================== -->
+    <section class="scene" id="s4" data-scene="4">
+      <h2 class="title" data-t="s4.title"></h2>
+      <div class="plate-slot" data-slot="4"></div>
+      <div class="why-row">
+        <button class="why" data-k="battery">
+          <span class="why-visual" data-svg="battery"></span>
+          <span class="label" data-t="s4.items.0.text"></span>
+          <span class="src" data-t="s4.items.0.source"></span>
+        </button>
+        <button class="why" data-k="sprout">
+          <span class="why-visual" data-svg="sprout"></span>
+          <span class="label" data-t="s4.items.1.text"></span>
+          <span class="src" data-t="s4.items.1.source"></span>
+        </button>
+        <button class="why" data-k="heart">
+          <span class="why-visual" data-svg="heart"></span>
+          <span class="label" data-t="s4.items.2.text"></span>
+          <span class="src" data-t="s4.items.2.source"></span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ===================== SCENE 5 ===================== -->
+    <section class="scene" id="s5" data-scene="5">
+      <h2 class="title" data-t="s5.title"></h2>
+      <div class="desk">
+        <div class="notebook" data-svg="notebook"></div>
+        <img class="desk-pen" src="assets/food/pen.png" alt="" draggable="false">
+        <div class="find-spot" data-k="clock">
+          <button class="find" aria-label=""><img src="assets/food/alarm_clock.png" alt="" draggable="false"></button>
+          <div class="problem-tag"><p class="label" data-t="s5.items.0.text"></p><p class="src" data-t="s5.items.0.source"></p></div>
+        </div>
+        <div class="find-spot" data-k="soda">
+          <button class="find" aria-label=""><img src="assets/food/cup_with_straw.png" alt="" draggable="false"></button>
+          <div class="problem-tag"><p class="label" data-t="s5.items.1.text"></p><p class="src" data-t="s5.items.1.source"></p></div>
+        </div>
+        <div class="find-spot" data-k="fries">
+          <button class="find" aria-label=""><img src="assets/food/french_fries.png" alt="" draggable="false"></button>
+          <div class="problem-tag"><p class="label" data-t="s5.items.2.text"></p><p class="src" data-t="s5.items.2.source"></p></div>
+        </div>
+        <div class="find-spot" data-k="bowl">
+          <button class="find" aria-label=""><span class="bowl-img" data-svg="bowl"></span></button>
+          <div class="problem-tag"><p class="label" data-t="s5.items.3.text"></p><p class="src" data-t="s5.items.3.source"></p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SCENE 6 ===================== -->
+    <section class="scene" id="s6" data-scene="6">
+      <h2 class="title" data-t="s6.title"></h2>
+      <div class="facts">
+        <button class="fact" data-k="water">
+          <span class="fact-visual glasses" data-svg="glasses8"></span>
+          <span class="fact-text"><span class="num num-water" data-t="s6.items.0.number"></span><span class="label" data-t="s6.items.0.text"></span></span>
+          <span class="src" data-t="s6.items.0.source"></span>
+        </button>
+        <button class="fact" data-k="fruit">
+          <span class="fact-visual fruit-bowl"><span class="bowl-big" data-svg="bowl"></span><span class="bowl-fruits"></span></span>
+          <span class="fact-text"><span class="num num-fruit" data-t="s6.items.1.number"></span><span class="label" data-t="s6.items.1.text"></span></span>
+          <span class="src" data-t="s6.items.1.source"></span>
+        </button>
+        <button class="fact" data-k="half">
+          <span class="fact-visual half-visual"><span class="plate-slot" data-slot="6"></span></span>
+          <span class="fact-text"><span class="num num-veg" data-t="s6.items.2.number"></span><span class="label" data-t="s6.items.2.text"></span></span>
+          <span class="src" data-t="s6.items.2.source"></span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ===================== SCENE 7 ===================== -->
+    <section class="scene" id="s7" data-scene="7">
+      <h2 class="title" data-t="s7.title"></h2>
+      <div class="cards">
+        <button class="flip" data-i="0">
+          <span class="flip-inner">
+            <span class="flip-face flip-front"><img src="assets/food/cup_with_straw.png" alt="" draggable="false"></span>
+            <span class="flip-face flip-back"><span class="back-visual" data-svg="glass-full"></span><span class="label" data-t="s7.items.0.text"></span><span class="src" data-t="s7.items.0.source"></span></span>
+          </span>
+        </button>
+        <button class="flip" data-i="1">
+          <span class="flip-inner">
+            <span class="flip-face flip-front"><span class="front-bowl" data-svg="bowl"></span></span>
+            <span class="flip-face flip-back"><img class="back-visual" src="assets/food/banana.png" alt="" draggable="false"><span class="label" data-t="s7.items.1.text"></span><span class="src" data-t="s7.items.1.source"></span></span>
+          </span>
+        </button>
+        <button class="flip" data-i="2">
+          <span class="flip-inner">
+            <span class="flip-face flip-front"><img src="assets/food/alarm_clock.png" alt="" draggable="false"></span>
+            <span class="flip-face flip-back"><img class="back-visual" src="assets/food/cooking.png" alt="" draggable="false"><span class="label" data-t="s7.items.2.text"></span><span class="src" data-t="s7.items.2.source"></span></span>
+          </span>
+        </button>
+        <button class="flip" data-i="3">
+          <span class="flip-inner">
+            <span class="flip-face flip-front candy-pile">
+              <img src="assets/food/candy.png" alt="" draggable="false"><img src="assets/food/candy.png" alt="" draggable="false"><img src="assets/food/candy.png" alt="" draggable="false"><img src="assets/food/candy.png" alt="" draggable="false"><img src="assets/food/candy.png" alt="" draggable="false"><img src="assets/food/candy.png" alt="" draggable="false"><img src="assets/food/candy.png" alt="" draggable="false">
+            </span>
+            <span class="flip-face flip-back"><img class="back-visual one-candy" src="assets/food/candy.png" alt="" draggable="false"><span class="label" data-t="s7.items.3.text"></span><span class="src" data-t="s7.items.3.source"></span></span>
+          </span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ===================== SCENE 8 ===================== -->
+    <section class="scene" id="s8" data-scene="8">
+      <h2 class="title" data-t="s8.title"></h2>
+      <div class="game-menu">
+        <ol class="game-list">
+          <li class="game-step"><span class="step-thumb" data-svg="mini-plate"></span><span class="step-text" data-t="s8.items.0"></span></li>
+          <li class="game-step"><span class="step-thumb step-tf" aria-hidden="true"><i class="tf-dot tf-true"></i><i class="tf-dot tf-false"></i></span><span class="step-text" data-t="s8.items.1"></span></li>
+        </ol>
+        <button class="btn btn-primary btn-start" data-action="start-game" data-t="s8.button"></button>
+      </div>
+      <div class="qr-card">
+        <div class="qr" id="qr" role="img" aria-label="QR"></div>
+      </div>
+    </section>
+
+    <!-- ===================== SCENE 9 ===================== -->
+    <section class="scene" id="s9" data-scene="9">
+      <div class="finale-head">
+        <h2 class="title" data-t="s9.title"></h2>
+        <p class="src" data-t="s9.titleSource"></p>
+      </div>
+      <div class="plate-slot" data-slot="9"></div>
+      <img class="finale-pen" src="assets/food/pen.png" alt="" draggable="false">
+      <div class="finale-foot">
+        <p class="finale-text" data-t="s9.text"></p>
+        <p class="src" data-t="s9.textSource"></p>
+      </div>
+      <button class="sources-link" data-action="sources" data-t="s9.sourcesLink"></button>
+      <div class="rain" aria-hidden="true"></div>
+    </section>
+
+    <!-- The plate that travels between scenes (presentation mode) -->
+    <div class="hero" id="hero"></div>
+
+    <!-- Tap hint (hand) -->
+    <div class="hint" id="hint" aria-hidden="true"><span class="hint-ring"></span><span class="hint-hand" data-svg="hand"></span></div>
+
+    <!-- Progress: a mini plate with 9 portions -->
+    <div class="progress" id="progress" aria-hidden="true"></div>
+
+    <!-- ===================== GAMES ===================== -->
+    <div class="game" id="game" hidden role="dialog" aria-modal="true" aria-labelledby="pg-title">
+      <button class="icon-btn game-close" data-action="close-game" aria-label="Close" data-svg="close"></button>
+
+      <!-- Game 1 -->
+      <div class="pg" id="pg">
+        <div class="pg-head">
+          <h2 class="title" id="pg-title" data-t="plateGame.title"></h2>
+          <p class="pg-instruction" data-t="plateGame.instruction"></p>
+        </div>
+        <div class="pg-table">
+          <div class="pg-plate" id="pg-plate"></div>
+          <div class="pg-coaster" id="pg-coaster"><span class="coaster-ring"></span></div>
+        </div>
+        <div class="pg-actions">
+          <button class="btn btn-primary" id="pg-check" data-t="plateGame.checkButton" disabled></button>
+          <button class="btn btn-ghost" id="pg-again" data-t="plateGame.tryAgain" hidden></button>
+          <button class="btn btn-ghost" id="pg-next" data-t="plateGame.next"></button>
+        </div>
+        <div class="pg-side">
+          <div class="pg-tray" id="pg-tray"></div>
+          <div class="pg-drinks" id="pg-drinks"></div>
+          <div class="pg-result" id="pg-result" aria-live="polite"></div>
+        </div>
+      </div>
+
+      <!-- Game 2 -->
+      <div class="qz" id="qz" hidden>
+        <div class="qz-head">
+          <h2 class="title" id="qz-title" data-t="quiz.title"></h2>
+          <p class="qz-counter" id="qz-counter"></p>
+        </div>
+        <div class="qz-card" id="qz-card">
+          <p class="qz-q" id="qz-q"></p>
+        </div>
+        <div class="qz-answers" id="qz-answers">
+          <button class="btn qz-btn qz-true" data-answer="true" data-t="quiz.trueButton"></button>
+          <button class="btn qz-btn qz-false" data-answer="false" data-t="quiz.falseButton"></button>
+        </div>
+        <div class="qz-feedback" id="qz-feedback" aria-live="polite">
+          <p class="qz-fb-main" id="qz-fb-main"></p>
+          <p class="qz-fb-expl" id="qz-fb-expl"></p>
+          <p class="src" id="qz-fb-src"></p>
+        </div>
+        <button class="btn btn-primary qz-next" id="qz-next" data-t="quiz.nextButton" hidden></button>
+        <div class="qz-end" id="qz-end" hidden>
+          <p class="qz-score" id="qz-score" aria-live="polite"></p>
+          <button class="btn btn-primary" id="qz-finish" data-t="quiz.finishButton"></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== SOURCES WINDOW ===================== -->
+    <div class="sources" id="sources" hidden role="dialog" aria-modal="true" aria-labelledby="sources-title">
+      <div class="sources-sheet">
+        <h2 class="sources-title" id="sources-title" data-t="sourcesWindow.title"></h2>
+        <ul class="sources-list" id="sources-list"></ul>
+        <button class="btn btn-primary" data-action="close-sources" data-t="sourcesWindow.close"></button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Discreet controls (hide after 3 s without moving the mouse) -->
+  <div class="controls" id="controls">
+    <button class="icon-btn" data-action="notes" aria-label="Notes" aria-pressed="false" data-svg="notes"></button>
+    <button class="icon-btn" data-action="fullscreen" aria-label="Fullscreen" data-svg="fullscreen"></button>
+  </div>
+
+  <!-- Speaker notes (key N) -->
+  <aside class="notes-panel" id="notes-panel" hidden aria-live="polite"></aside>
+
+  <script src="js/content.js"></script>
+  <script src="vendor/qrcode.js"></script>
+  <script src="js/scenes.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
